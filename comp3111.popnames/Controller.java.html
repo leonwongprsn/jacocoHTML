@@ -321,7 +321,7 @@ import javafx.scene.text.Font;
     /**
      *  Task One
      *  To be triggered by the &quot;Report&quot; button on the Task One Tab
-     *  
+     *  @author &lt;a href=mailto:lwwongaf@connect.ust.hk&gt;Wong Lap Wang&lt;/a&gt;
      */
     @FXML
     void doReport1() {
@@ -398,7 +398,7 @@ import javafx.scene.text.Font;
 
     /**  Task 2
     *  To be triggered by the &quot;Report&quot; button on the Task 2 Tab
-    *  
+    *  @author &lt;a href=mailto:mhfong@connect.ust.hk&gt;Fong Man Hin&lt;/a&gt;
     */
    @FXML
    void doTask2() {
@@ -453,7 +453,7 @@ import javafx.scene.text.Font;
     
    /**  Task 3A
     *  To be triggered by the &quot;Report&quot; button on the Task 3A Tab
-    *  
+    *  @author &lt;a href=mailto:kytoac@connect.ust.hk&gt;To Kai Yuen&lt;/a&gt;
     */
    @FXML
    void doReport3A() {
@@ -527,192 +527,193 @@ import javafx.scene.text.Font;
    /**
     * Task 4 Application
     * To be triggered by the &quot;Get Recommendation&quot; button on the Task 4 Tab
+    * @author &lt;a href=mailto:lwwongaf@connect.ust.hk&gt;Wong Lap Wang&lt;/a&gt;
     */
    @FXML
    void getChildName() {
-<span class="fc" id="L533">	   boolean isInputEmpty = false;</span>
-<span class="fc" id="L534">	   boolean isInputValid = true;</span>
-<span class="fc" id="L535">	   String oReport = &quot;&quot;;</span>
+<span class="fc" id="L534">	   boolean isInputEmpty = false;</span>
+<span class="fc" id="L535">	   boolean isInputValid = true;</span>
+<span class="fc" id="L536">	   String oReport = &quot;&quot;;</span>
 	   
-<span class="pc bpc" id="L537" title="2 of 4 branches missed.">	   if (tfDadNameA1.getText().isBlank() || tfMumNameA1.getText().isBlank() || </span>
-<span class="pc bpc" id="L538" title="2 of 4 branches missed.">			   tfDadYobA1.getText().isBlank() || tfMumYobA1.getText().isBlank()  ) {</span>
-<span class="nc" id="L539">		isInputEmpty = true; </span>
-<span class="nc" id="L540">		oReport += &quot;No Input except Vintage Year can be empty, Please enter all the input needed.\n&quot;;</span>
-<span class="nc" id="L541">		textAreaConsole.setText(oReport);</span>
-<span class="nc" id="L542">		return;</span>
+<span class="pc bpc" id="L538" title="2 of 4 branches missed.">	   if (tfDadNameA1.getText().isBlank() || tfMumNameA1.getText().isBlank() || </span>
+<span class="pc bpc" id="L539" title="2 of 4 branches missed.">			   tfDadYobA1.getText().isBlank() || tfMumYobA1.getText().isBlank()  ) {</span>
+<span class="nc" id="L540">		isInputEmpty = true; </span>
+<span class="nc" id="L541">		oReport += &quot;No Input except Vintage Year can be empty, Please enter all the input needed.\n&quot;;</span>
+<span class="nc" id="L542">		textAreaConsole.setText(oReport);</span>
+<span class="nc" id="L543">		return;</span>
 	   }
 	   
-<span class="fc" id="L545">	   String dadNameString = tfDadNameA1.getText();</span>
-<span class="fc" id="L546">	   String mumNameString = tfMumNameA1.getText();</span>
-<span class="fc" id="L547">	   int dadYob = Integer.parseInt(tfDadYobA1.getText());</span>
-<span class="fc" id="L548">	   int mumYob = Integer.parseInt(tfMumYobA1.getText());</span>
-<span class="fc" id="L549">	   int vintageYear = -1;</span>
+<span class="fc" id="L546">	   String dadNameString = tfDadNameA1.getText();</span>
+<span class="fc" id="L547">	   String mumNameString = tfMumNameA1.getText();</span>
+<span class="fc" id="L548">	   int dadYob = Integer.parseInt(tfDadYobA1.getText());</span>
+<span class="fc" id="L549">	   int mumYob = Integer.parseInt(tfMumYobA1.getText());</span>
+<span class="fc" id="L550">	   int vintageYear = -1;</span>
 	   
-<span class="pc bpc" id="L551" title="1 of 2 branches missed.">	   if (tfVYearA1.getText().isBlank() == true) {</span>
-<span class="fc" id="L552">		   vintageYear = 2019;</span>
+<span class="pc bpc" id="L552" title="1 of 2 branches missed.">	   if (tfVYearA1.getText().isBlank() == true) {</span>
+<span class="fc" id="L553">		   vintageYear = 2019;</span>
 	   } else {
-<span class="nc" id="L554">		   vintageYear = Integer.parseInt(tfVYearA1.getText());</span>
+<span class="nc" id="L555">		   vintageYear = Integer.parseInt(tfVYearA1.getText());</span>
 	   }
 	   
-<span class="pc bpc" id="L557" title="2 of 4 branches missed.">	   if (vintageYear &lt; 1880 || vintageYear &gt; 2019) {</span>
-<span class="nc" id="L558">		   oReport += &quot;Please enter the Vintage Year within the range of 1880 to 2019 or leave it empty.\n&quot;;</span>
-<span class="nc" id="L559">		   isInputValid = false;</span>
+<span class="pc bpc" id="L558" title="2 of 4 branches missed.">	   if (vintageYear &lt; 1880 || vintageYear &gt; 2019) {</span>
+<span class="nc" id="L559">		   oReport += &quot;Please enter the Vintage Year within the range of 1880 to 2019 or leave it empty.\n&quot;;</span>
+<span class="nc" id="L560">		   isInputValid = false;</span>
 	   }
 	   
-<span class="pc bpc" id="L562" title="2 of 4 branches missed.">	   if (dadYob &lt; 1880 || dadYob &gt; 2019) {</span>
-<span class="nc" id="L563">		   oReport += &quot;Please enter the Dad's year of birth within the range of 1880 to 2019.\n&quot;;</span>
-<span class="nc" id="L564">		   isInputValid = false;</span>
+<span class="pc bpc" id="L563" title="2 of 4 branches missed.">	   if (dadYob &lt; 1880 || dadYob &gt; 2019) {</span>
+<span class="nc" id="L564">		   oReport += &quot;Please enter the Dad's year of birth within the range of 1880 to 2019.\n&quot;;</span>
+<span class="nc" id="L565">		   isInputValid = false;</span>
 	   }
-<span class="pc bpc" id="L566" title="2 of 4 branches missed.">	   if (mumYob &lt; 1880 || mumYob &gt; 2019) {</span>
-<span class="nc" id="L567">		   oReport += &quot;Please enter the Mum's year of birth within the range of 1880 to 2019.\n&quot;;</span>
-<span class="nc" id="L568">		   isInputValid = false;</span>
-	   }
-	   
-<span class="pc bpc" id="L571" title="1 of 2 branches missed.">	   if (isInputValid == false) {</span>
-<span class="nc" id="L572">		   textAreaConsole.setText(oReport);</span>
-<span class="nc" id="L573">		   return;</span>
+<span class="pc bpc" id="L567" title="2 of 4 branches missed.">	   if (mumYob &lt; 1880 || mumYob &gt; 2019) {</span>
+<span class="nc" id="L568">		   oReport += &quot;Please enter the Mum's year of birth within the range of 1880 to 2019.\n&quot;;</span>
+<span class="nc" id="L569">		   isInputValid = false;</span>
 	   }
 	   
-	   
-<span class="fc" id="L577">	   AnalyzeNames analyzeNames = new AnalyzeNames();</span>
-<span class="fc" id="L578">	   int dadRank = analyzeNames.getRank(dadYob, dadNameString, &quot;M&quot;);</span>
-<span class="fc" id="L579">	   int mumRank = analyzeNames.getRank(mumYob, mumNameString, &quot;F&quot;);</span>
-<span class="fc" id="L580">	   boolean isDadRankFound = true;</span>
-<span class="fc" id="L581">	   boolean isMumRankFound = true;</span>
-<span class="pc bpc" id="L582" title="1 of 2 branches missed.">	   if (dadRank == -1) {</span>
-<span class="nc" id="L583">		   isDadRankFound = false;</span>
-<span class="nc" id="L584">		dadRank = 1;</span>
-	   }
-<span class="pc bpc" id="L586" title="1 of 2 branches missed.">	   if (mumRank == -1) {</span>
-<span class="nc" id="L587">		   isMumRankFound = false;</span>
-<span class="nc" id="L588">		mumRank = 1;</span>
+<span class="pc bpc" id="L572" title="1 of 2 branches missed.">	   if (isInputValid == false) {</span>
+<span class="nc" id="L573">		   textAreaConsole.setText(oReport);</span>
+<span class="nc" id="L574">		   return;</span>
 	   }
 	   
-<span class="fc" id="L591">	   String boyNameString = analyzeNames.getName(vintageYear, dadRank, &quot;M&quot;);</span>
-<span class="fc" id="L592">	   String girlNameString = analyzeNames.getName(vintageYear, mumRank, &quot;F&quot;);</span>
-<span class="fc" id="L593">	   oReport += String.format(&quot;*** Recommended Boy name for newborn babies is %s! ***\nThis is because %s is the No.%s name in vintage year(%s)\nand No.%s is the the rank of Dad's name in his year of birth(%s)!\n\n&quot;, boyNameString, boyNameString,dadRank,vintageYear,dadRank,dadYob);</span>
-<span class="pc bpc" id="L594" title="1 of 2 branches missed.">	   if (!isDadRankFound) {</span>
-<span class="nc" id="L595">		   oReport += String.format(&quot;Remark:\nThe rank of Dad's name(%s) cannot be found in his year of birth(%s),\nso the rank set to 1 by the system.\n\n&quot;, dadNameString, dadYob);</span>
+	   
+<span class="fc" id="L578">	   AnalyzeNames analyzeNames = new AnalyzeNames();</span>
+<span class="fc" id="L579">	   int dadRank = analyzeNames.getRank(dadYob, dadNameString, &quot;M&quot;);</span>
+<span class="fc" id="L580">	   int mumRank = analyzeNames.getRank(mumYob, mumNameString, &quot;F&quot;);</span>
+<span class="fc" id="L581">	   boolean isDadRankFound = true;</span>
+<span class="fc" id="L582">	   boolean isMumRankFound = true;</span>
+<span class="pc bpc" id="L583" title="1 of 2 branches missed.">	   if (dadRank == -1) {</span>
+<span class="nc" id="L584">		   isDadRankFound = false;</span>
+<span class="nc" id="L585">		dadRank = 1;</span>
+	   }
+<span class="pc bpc" id="L587" title="1 of 2 branches missed.">	   if (mumRank == -1) {</span>
+<span class="nc" id="L588">		   isMumRankFound = false;</span>
+<span class="nc" id="L589">		mumRank = 1;</span>
+	   }
+	   
+<span class="fc" id="L592">	   String boyNameString = analyzeNames.getName(vintageYear, dadRank, &quot;M&quot;);</span>
+<span class="fc" id="L593">	   String girlNameString = analyzeNames.getName(vintageYear, mumRank, &quot;F&quot;);</span>
+<span class="fc" id="L594">	   oReport += String.format(&quot;*** Recommended Boy name for newborn babies is %s! ***\nThis is because %s is the No.%s name in vintage year(%s)\nand No.%s is the the rank of Dad's name in his year of birth(%s)!\n\n&quot;, boyNameString, boyNameString,dadRank,vintageYear,dadRank,dadYob);</span>
+<span class="pc bpc" id="L595" title="1 of 2 branches missed.">	   if (!isDadRankFound) {</span>
+<span class="nc" id="L596">		   oReport += String.format(&quot;Remark:\nThe rank of Dad's name(%s) cannot be found in his year of birth(%s),\nso the rank set to 1 by the system.\n\n&quot;, dadNameString, dadYob);</span>
 	   } else {
 		   //oReport += String.format(&quot;The rank of Mad's name(%s) in his year of birth(%s) is %s .\n\n&quot;, dadNameString, dadYob,dadRank);
 	   }
 
-<span class="fc" id="L600">	   oReport += String.format(&quot;*** Recommended Girl name for newborn babies is %s! ***\nThis is because %s is the No.%s name in vintage year(%s)\nand No.%s is the the rank of Mum's name in her year of birth(%s)!\n\n&quot;, girlNameString, girlNameString,mumRank,vintageYear,mumRank,mumYob);</span>
-<span class="pc bpc" id="L601" title="1 of 2 branches missed.">	   if (!isMumRankFound) {</span>
-<span class="nc" id="L602">		   oReport += String.format(&quot;Remark:\nThe rank of Mum's name(%s) cannot be found in her year of birth(%s),\nso the rank is set to 1 by the system.\n\n&quot;, mumNameString, dadYob);</span>
+<span class="fc" id="L601">	   oReport += String.format(&quot;*** Recommended Girl name for newborn babies is %s! ***\nThis is because %s is the No.%s name in vintage year(%s)\nand No.%s is the the rank of Mum's name in her year of birth(%s)!\n\n&quot;, girlNameString, girlNameString,mumRank,vintageYear,mumRank,mumYob);</span>
+<span class="pc bpc" id="L602" title="1 of 2 branches missed.">	   if (!isMumRankFound) {</span>
+<span class="nc" id="L603">		   oReport += String.format(&quot;Remark:\nThe rank of Mum's name(%s) cannot be found in her year of birth(%s),\nso the rank is set to 1 by the system.\n\n&quot;, mumNameString, dadYob);</span>
 	   } else {
 		   //oReport += String.format(&quot;The rank of Mum's name(%s) in her year of birth(%s) is %s .\n\n&quot;, mumNameString, mumYob,mumRank);
 	   }
-<span class="fc" id="L606">	   textAreaConsole.setText(oReport);</span>
-<span class="fc" id="L607">   }</span>
+<span class="fc" id="L607">	   textAreaConsole.setText(oReport);</span>
+<span class="fc" id="L608">   }</span>
 
 	/**  Task 5
 	 *  To be triggered by the &quot;Go&quot; button on the Task 5 Tab
-	 *  
+	 *  @author &lt;a href=mailto:mhfong@connect.ust.hk&gt;Fong Man Hin&lt;/a&gt;
 	 */
 	@FXML
 	void doTask5() {
-<span class="fc" id="L615">		String oReport = &quot;&quot;;</span>
-<span class="fc" id="L616">   		String iName = textfieldNameT5.getText();</span>
-<span class="fc bfc" id="L617" title="All 2 branches covered.">   		String iGender = radiobuttonMT51.isSelected() ? &quot;M&quot; : &quot;F&quot;;</span>
-<span class="pc bpc" id="L618" title="1 of 2 branches missed.">   		String oGender = radiobuttonMT52.isSelected() ? &quot;M&quot; : &quot;F&quot;;</span>
-<span class="pc bpc" id="L619" title="1 of 2 branches missed.">   		String oGen = oGender==&quot;M&quot; ? &quot;Male&quot; : &quot;Female&quot;;</span>
-<span class="pc bpc" id="L620" title="1 of 4 branches missed.">   		if(textfieldNameT5.getText().isEmpty()||textfieldYearT5.getText().isEmpty()) {</span>
-<span class="fc" id="L621">   			textAreaConsole.setText(&quot;Your input is empty. Please enter again.&quot;);</span>
-<span class="fc" id="L622">   			return;</span>
+<span class="fc" id="L616">		String oReport = &quot;&quot;;</span>
+<span class="fc" id="L617">   		String iName = textfieldNameT5.getText();</span>
+<span class="fc bfc" id="L618" title="All 2 branches covered.">   		String iGender = radiobuttonMT51.isSelected() ? &quot;M&quot; : &quot;F&quot;;</span>
+<span class="pc bpc" id="L619" title="1 of 2 branches missed.">   		String oGender = radiobuttonMT52.isSelected() ? &quot;M&quot; : &quot;F&quot;;</span>
+<span class="pc bpc" id="L620" title="1 of 2 branches missed.">   		String oGen = oGender==&quot;M&quot; ? &quot;Male&quot; : &quot;Female&quot;;</span>
+<span class="pc bpc" id="L621" title="1 of 4 branches missed.">   		if(textfieldNameT5.getText().isEmpty()||textfieldYearT5.getText().isEmpty()) {</span>
+<span class="fc" id="L622">   			textAreaConsole.setText(&quot;Your input is empty. Please enter again.&quot;);</span>
+<span class="fc" id="L623">   			return;</span>
    		}
-<span class="fc" id="L624">   		int iYob = Integer.parseInt(textfieldYearT5.getText());</span>
-<span class="pc bpc" id="L625" title="1 of 4 branches missed.">   		if(iYob &lt; 1880 || iYob &gt; 2019) {</span>
-<span class="fc" id="L626">   			textAreaConsole.setText(&quot;Input \&quot;Year of Birth\&quot; Out Of Range\nPlease enter your Year of Birth within 1880 - 2019 again.&quot;);</span>
-<span class="fc" id="L627">   			return;</span>
+<span class="fc" id="L625">   		int iYob = Integer.parseInt(textfieldYearT5.getText());</span>
+<span class="pc bpc" id="L626" title="1 of 4 branches missed.">   		if(iYob &lt; 1880 || iYob &gt; 2019) {</span>
+<span class="fc" id="L627">   			textAreaConsole.setText(&quot;Input \&quot;Year of Birth\&quot; Out Of Range\nPlease enter your Year of Birth within 1880 - 2019 again.&quot;);</span>
+<span class="fc" id="L628">   			return;</span>
    		}
-<span class="fc bfc" id="L629" title="All 2 branches covered.">   		boolean oPrefer = radiobuttonYT5.isSelected() ? true : false; //1 = younger; 0 = older</span>
-<span class="fc bfc" id="L630" title="All 2 branches covered.">   		String oPre = oPrefer ? &quot;younger&quot; : &quot;older&quot;;</span>
-<span class="fc" id="L631">   		int oRank = AnalyzeNames.getRank(iYob, iName, iGender);</span>
-<span class="fc" id="L632">   		Zodiac iZodiac = AnalyzeNames.getIZodiac(iYob);</span>
-<span class="fc" id="L633">   		Zodiac oZodiac = AnalyzeNames.getOZodiac(iZodiac);</span>
-<span class="fc" id="L634">   		int oYob = AnalyzeNames.getOYob(iYob, iZodiac, oZodiac, oPrefer);</span>
-<span class="fc bfc" id="L635" title="All 2 branches covered.">   		if(oYob == 0) {</span>
-<span class="fc" id="L636">   			textAreaConsole.setText(&quot;Opps! Your prefered soulmate seems will be born out of our range(1880-2019).\nSorry we cannot help you this time. Please try again with another age preference.&quot;);</span>
-<span class="fc" id="L637">   			return;</span>
+<span class="fc bfc" id="L630" title="All 2 branches covered.">   		boolean oPrefer = radiobuttonYT5.isSelected() ? true : false; //1 = younger; 0 = older</span>
+<span class="fc bfc" id="L631" title="All 2 branches covered.">   		String oPre = oPrefer ? &quot;younger&quot; : &quot;older&quot;;</span>
+<span class="fc" id="L632">   		int oRank = AnalyzeNames.getRank(iYob, iName, iGender);</span>
+<span class="fc" id="L633">   		Zodiac iZodiac = AnalyzeNames.getIZodiac(iYob);</span>
+<span class="fc" id="L634">   		Zodiac oZodiac = AnalyzeNames.getOZodiac(iZodiac);</span>
+<span class="fc" id="L635">   		int oYob = AnalyzeNames.getOYob(iYob, iZodiac, oZodiac, oPrefer);</span>
+<span class="fc bfc" id="L636" title="All 2 branches covered.">   		if(oYob == 0) {</span>
+<span class="fc" id="L637">   			textAreaConsole.setText(&quot;Opps! Your prefered soulmate seems will be born out of our range(1880-2019).\nSorry we cannot help you this time. Please try again with another age preference.&quot;);</span>
+<span class="fc" id="L638">   			return;</span>
    		}
-<span class="pc bpc" id="L639" title="1 of 2 branches missed.">   		if(oRank != -1) {</span>
-<span class="fc" id="L640">	   		oReport += String.format(&quot;Step1: Find your Zodical Animal\nIn the year %d, the rank of your name %s of gender %s is %d.\n-&gt; Your Zodical Animal is %s.\n\n&quot;</span>
+<span class="pc bpc" id="L640" title="1 of 2 branches missed.">   		if(oRank != -1) {</span>
+<span class="fc" id="L641">	   		oReport += String.format(&quot;Step1: Find your Zodical Animal\nIn the year %d, the rank of your name %s of gender %s is %d.\n-&gt; Your Zodical Animal is %s.\n\n&quot;</span>
 									   				+ &quot;Step2: Find your soulmate's Zodical Animal\nAccording to the Chinese Zodiac Compatible Table,\n-&gt; Your soulmate's Zodical Animal is %s.\n\n&quot;, 
-<span class="fc" id="L642">									   				iYob, iName, iGender, oRank, iZodiac, oZodiac);</span>
+<span class="fc" id="L643">									   				iYob, iName, iGender, oRank, iZodiac, oZodiac);</span>
    		}
    		else {
-<span class="nc" id="L645">   			Random rand = new Random(); </span>
-<span class="nc" id="L646">   			oRank = rand.nextInt(100);</span>
-<span class="nc" id="L647">   			oReport += String.format(&quot;Step1: Find your Zodical Animal\nIn the year %d, your name %s of gender %s is not found.\nSo we will randomly generate a rank for you. Your rank is %d.\n-&gt; Your Zodical Animal is %s.\n\n&quot;</span>
+<span class="nc" id="L646">   			Random rand = new Random(); </span>
+<span class="nc" id="L647">   			oRank = rand.nextInt(100);</span>
+<span class="nc" id="L648">   			oReport += String.format(&quot;Step1: Find your Zodical Animal\nIn the year %d, your name %s of gender %s is not found.\nSo we will randomly generate a rank for you. Your rank is %d.\n-&gt; Your Zodical Animal is %s.\n\n&quot;</span>
 	   				+ &quot;Step2: Find your soulmate's Zodical Animal\nAccording to the Chinese Zodiac Compatible Table,\n-&gt; Your soulmate's Zodical Animal is %s.\n\n&quot;, 
-<span class="nc" id="L649">	   				iYob, iName, iGender, oRank, iZodiac, oZodiac);</span>
+<span class="nc" id="L650">	   				iYob, iName, iGender, oRank, iZodiac, oZodiac);</span>
    		}
-<span class="fc" id="L651">   		String oName = AnalyzeNames.getName(oYob, oRank, oGender);</span>
-<span class="fc bfc" id="L652" title="All 2 branches covered.">   		if(oPre == &quot;younger&quot;)</span>
-<span class="fc" id="L653">   			oReport += String.format(&quot;Step3: Find your soulmate's Year of Birth\nYou prefer a soulmate of gender %s %s than you.\n-&gt; The closest %s year bigger than %d would be %d.\n\n&quot;, oGen, oPre, oZodiac, iYob, oYob);</span>
+<span class="fc" id="L652">   		String oName = AnalyzeNames.getName(oYob, oRank, oGender);</span>
+<span class="fc bfc" id="L653" title="All 2 branches covered.">   		if(oPre == &quot;younger&quot;)</span>
+<span class="fc" id="L654">   			oReport += String.format(&quot;Step3: Find your soulmate's Year of Birth\nYou prefer a soulmate of gender %s %s than you.\n-&gt; The closest %s year bigger than %d would be %d.\n\n&quot;, oGen, oPre, oZodiac, iYob, oYob);</span>
    		else
-<span class="fc" id="L655">   			oReport += String.format(&quot;Step3: Find your soulmate's Year of Birth\nYou prefer a soulmate of gender %s %s than you.\n-&gt; The closest %s year smaller than %d would be %d.\n\n&quot;, oGen, oPre, oZodiac, iYob, oYob);</span>
-<span class="fc bfc" id="L656" title="All 2 branches covered.">   		if(oName != &quot;information on the name at the specified rank is not available&quot;) {</span>
-<span class="fc" id="L657">	   		oReport += String.format(&quot;Step4: Find your soulmate's Name\n-&gt; In %d, rank %d of gender %s is called %s.\n\n[Result] Your soulmate should be a %d-years-old %s called %s!&quot;,oYob, oRank, oGen, oName, 2020-oYob, oGen, oName);</span>
+<span class="fc" id="L656">   			oReport += String.format(&quot;Step3: Find your soulmate's Year of Birth\nYou prefer a soulmate of gender %s %s than you.\n-&gt; The closest %s year smaller than %d would be %d.\n\n&quot;, oGen, oPre, oZodiac, iYob, oYob);</span>
+<span class="fc bfc" id="L657" title="All 2 branches covered.">   		if(oName != &quot;information on the name at the specified rank is not available&quot;) {</span>
+<span class="fc" id="L658">	   		oReport += String.format(&quot;Step4: Find your soulmate's Name\n-&gt; In %d, rank %d of gender %s is called %s.\n\n[Result] Your soulmate should be a %d-years-old %s called %s!&quot;,oYob, oRank, oGen, oName, 2020-oYob, oGen, oName);</span>
    		}
    		else {
-<span class="fc" id="L660">   			oReport += String.format(&quot;Step4: Find your soulmate's Name\nSince rank %d of gender %s doesn't exist.\nWe will suggest the top rank name for this time.\n-&gt; The top rank name in %d of gender %s is called %s.\n\n[Result] Your soulmate should be a %d-years-old %s called %s&quot;, </span>
-<span class="fc" id="L661">   					oRank, oGen, oYob, oGen, AnalyzeNames.getName(oYob, 1, oGender), 2020-oYob, oGen, AnalyzeNames.getName(oYob, 1, oGender));</span>
+<span class="fc" id="L661">   			oReport += String.format(&quot;Step4: Find your soulmate's Name\nSince rank %d of gender %s doesn't exist.\nWe will suggest the top rank name for this time.\n-&gt; The top rank name in %d of gender %s is called %s.\n\n[Result] Your soulmate should be a %d-years-old %s called %s&quot;, </span>
+<span class="fc" id="L662">   					oRank, oGen, oYob, oGen, AnalyzeNames.getName(oYob, 1, oGender), 2020-oYob, oGen, AnalyzeNames.getName(oYob, 1, oGender));</span>
    		}
-<span class="fc" id="L663">   		textAreaConsole.setText(oReport);</span>
-<span class="fc" id="L664">	}</span>
+<span class="fc" id="L664">   		textAreaConsole.setText(oReport);</span>
+<span class="fc" id="L665">	}</span>
 	
 	/**  Task 6
 	 *  To be triggered by the &quot;Check Compatibility&quot; button on the Task 6 Tab
-	 *  
+	 *  @author &lt;a href=mailto:kytoac@connect.ust.hk&gt;To Kai Yuen&lt;/a&gt;
 	 */
 	@FXML
 	void doTask6(){
 		
-<span class="fc" id="L673">		String oReport = &quot;&quot;;		</span>
-<span class="fc" id="L674">		String name = &quot;&quot;;</span>
-<span class="fc" id="L675">		int year_of_birth = 0;</span>
-<span class="fc" id="L676">		String pref_name = &quot;&quot;;</span>
-<span class="fc" id="L677">		String gender = &quot;&quot;;</span>
-<span class="fc" id="L678">		String pref_gender = &quot;&quot;;</span>
-<span class="fc" id="L679">		String pref_age = &quot;&quot;;</span>
+<span class="fc" id="L674">		String oReport = &quot;&quot;;		</span>
+<span class="fc" id="L675">		String name = &quot;&quot;;</span>
+<span class="fc" id="L676">		int year_of_birth = 0;</span>
+<span class="fc" id="L677">		String pref_name = &quot;&quot;;</span>
+<span class="fc" id="L678">		String gender = &quot;&quot;;</span>
+<span class="fc" id="L679">		String pref_gender = &quot;&quot;;</span>
+<span class="fc" id="L680">		String pref_age = &quot;&quot;;</span>
 
-<span class="pc bpc" id="L681" title="2 of 4 branches missed.">		if (tfNameA3.getText().isBlank() || tfPref_NameA3.getText().isBlank()</span>
-<span class="pc bpc" id="L682" title="1 of 2 branches missed.">				|| tfyobA3.getText().isBlank()) {</span>
-<span class="nc" id="L683">			oReport += &quot;Error: Please fill in all inputs.\n&quot;;</span>
-<span class="nc" id="L684">			textAreaConsole.setText(oReport);</span>
-<span class="nc" id="L685">			return ;</span>
+<span class="pc bpc" id="L682" title="2 of 4 branches missed.">		if (tfNameA3.getText().isBlank() || tfPref_NameA3.getText().isBlank()</span>
+<span class="pc bpc" id="L683" title="1 of 2 branches missed.">				|| tfyobA3.getText().isBlank()) {</span>
+<span class="nc" id="L684">			oReport += &quot;Error: Please fill in all inputs.\n&quot;;</span>
+<span class="nc" id="L685">			textAreaConsole.setText(oReport);</span>
+<span class="nc" id="L686">			return ;</span>
 		}
 
-<span class="fc" id="L688">		name = tfNameA3.getText();</span>
-<span class="fc" id="L689">		pref_name = tfPref_NameA3.getText();</span>
-<span class="fc" id="L690">		year_of_birth = Integer.parseInt(tfyobA3.getText());</span>
+<span class="fc" id="L689">		name = tfNameA3.getText();</span>
+<span class="fc" id="L690">		pref_name = tfPref_NameA3.getText();</span>
+<span class="fc" id="L691">		year_of_birth = Integer.parseInt(tfyobA3.getText());</span>
 		
-<span class="pc bpc" id="L692" title="1 of 2 branches missed.">		if (rbMaleA3.isSelected()) {</span>
-<span class="fc" id="L693">			gender = &quot;M&quot;;</span>
+<span class="pc bpc" id="L693" title="1 of 2 branches missed.">		if (rbMaleA3.isSelected()) {</span>
+<span class="fc" id="L694">			gender = &quot;M&quot;;</span>
 		} else {
-<span class="nc" id="L695">			gender = &quot;F&quot;;</span>
+<span class="nc" id="L696">			gender = &quot;F&quot;;</span>
 		}
-<span class="pc bpc" id="L697" title="1 of 2 branches missed.">		if (rbPref_MaleA3.isSelected()) {</span>
-<span class="nc" id="L698">			pref_gender = &quot;M&quot;;</span>
+<span class="pc bpc" id="L698" title="1 of 2 branches missed.">		if (rbPref_MaleA3.isSelected()) {</span>
+<span class="nc" id="L699">			pref_gender = &quot;M&quot;;</span>
 		} else {
-<span class="fc" id="L700">			pref_gender = &quot;F&quot;;</span>
+<span class="fc" id="L701">			pref_gender = &quot;F&quot;;</span>
 		}
-<span class="pc bpc" id="L702" title="1 of 2 branches missed.">		if (rbYoungerA3.isSelected()) {</span>
-<span class="fc" id="L703">			pref_age = &quot;Y&quot;;</span>
+<span class="pc bpc" id="L703" title="1 of 2 branches missed.">		if (rbYoungerA3.isSelected()) {</span>
+<span class="fc" id="L704">			pref_age = &quot;Y&quot;;</span>
 		} else {
-<span class="nc" id="L705">			pref_age = &quot;O&quot;;</span>
+<span class="nc" id="L706">			pref_age = &quot;O&quot;;</span>
 		}
-<span class="pc bpc" id="L707" title="2 of 4 branches missed.">		if (year_of_birth &lt; 1880 || year_of_birth &gt; 2019) {</span>
-<span class="nc" id="L708">			oReport += &quot;Error: Year of birth is out of range, please enter a value between 1880-2019 inclusively.\n&quot;;</span>
-<span class="nc" id="L709">			textAreaConsole.setText(oReport);</span>
-<span class="nc" id="L710">			return;</span>
+<span class="pc bpc" id="L708" title="2 of 4 branches missed.">		if (year_of_birth &lt; 1880 || year_of_birth &gt; 2019) {</span>
+<span class="nc" id="L709">			oReport += &quot;Error: Year of birth is out of range, please enter a value between 1880-2019 inclusively.\n&quot;;</span>
+<span class="nc" id="L710">			textAreaConsole.setText(oReport);</span>
+<span class="nc" id="L711">			return;</span>
 		}
-<span class="fc" id="L712">		oReport = AnalyzeNames.getReport6(name, gender, year_of_birth, pref_name, pref_gender, pref_age);		   </span>
-<span class="fc" id="L713">		textAreaConsole.setText(oReport);</span>
+<span class="fc" id="L713">		oReport = AnalyzeNames.getReport6(name, gender, year_of_birth, pref_name, pref_gender, pref_age);		   </span>
+<span class="fc" id="L714">		textAreaConsole.setText(oReport);</span>
 
-<span class="fc" id="L715">	}</span>
+<span class="fc" id="L716">	}</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

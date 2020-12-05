@@ -2,7 +2,8 @@
 
 /**
  * A class for store the data from csv file to a Person object.
- * 
+ * @author &lt;a href=mailto:lwwongaf@connect.ust.hk&gt;Wong Lap Wang&lt;/a&gt;
+ * @author &lt;a href=mailto:kytoac@connect.ust.hk&gt;To Kai Yuen&lt;/a&gt;
  *
  */
 public class Person {
@@ -16,29 +17,29 @@ public class Person {
 	int lowest_rank_year;
 	int highest_rank_year;
 	
-<span class="fc" id="L19">	public Person(String name, String gender, int occurrence , int rank, int yob) {</span>
-<span class="fc" id="L20">		this.name = name;</span>
-<span class="fc" id="L21">		this.gender = gender;</span>
-<span class="fc" id="L22">		this.occurrence = occurrence;</span>
-<span class="fc" id="L23">		this.rank = rank;</span>
-<span class="fc" id="L24">		this.yob = yob;</span>
-<span class="fc" id="L25">		this.lowest_rank = rank;</span>
-<span class="fc" id="L26">		this.highest_rank = rank;</span>
-<span class="fc" id="L27">		this.lowest_rank_year = yob;</span>
-<span class="fc" id="L28">		this.highest_rank_year = yob;</span>
-<span class="fc" id="L29">	}</span>
+<span class="fc" id="L20">	public Person(String name, String gender, int occurrence , int rank, int yob) {</span>
+<span class="fc" id="L21">		this.name = name;</span>
+<span class="fc" id="L22">		this.gender = gender;</span>
+<span class="fc" id="L23">		this.occurrence = occurrence;</span>
+<span class="fc" id="L24">		this.rank = rank;</span>
+<span class="fc" id="L25">		this.yob = yob;</span>
+<span class="fc" id="L26">		this.lowest_rank = rank;</span>
+<span class="fc" id="L27">		this.highest_rank = rank;</span>
+<span class="fc" id="L28">		this.lowest_rank_year = yob;</span>
+<span class="fc" id="L29">		this.highest_rank_year = yob;</span>
+<span class="fc" id="L30">	}</span>
 	
     public String getName() {
-<span class="fc" id="L32">        return this.name;</span>
+<span class="fc" id="L33">        return this.name;</span>
     }
     
 	
     public int getOccurrence() {
-<span class="fc" id="L37">        return this.occurrence ;</span>
+<span class="fc" id="L38">        return this.occurrence ;</span>
     }
      
     public void addOccurrence(int increment) {
-<span class="fc" id="L41">    	this.occurrence += increment;</span>
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L42">    	this.occurrence += increment;</span>
+<span class="fc" id="L43">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
