@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AnalyzeNames.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">AnalyzeNames.java</span></div><h1>AnalyzeNames.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+
+import org.apache.commons.csv.*;
+
+import java.util.ArrayList;
+
+import comp3111.popnames.Controller.Zodiac;
+import edu.duke.*;
+import javafx.scene.control.TextArea;
+
+<span class="fc" id="L11">public class AnalyzeNames {</span>
+
+	public static CSVParser getFileParser(int year) {
+<span class="fc" id="L14">     FileResource fr = new FileResource(String.format(&quot;dataset/yob%s.csv&quot;, year));</span>
+<span class="fc" id="L15">     return fr.getCSVParser(false);</span>
+	}
+ 
+	
+	public static String getSummary(int year) {
+<span class="fc" id="L20">		String oReport = &quot;&quot;;	</span>
+<span class="fc" id="L21">		int totalBirths = 0;</span>
+<span class="fc" id="L22">		int totalBoys = 0;</span>
+<span class="fc" id="L23">		int totalGirls = 0;</span>
+<span class="fc" id="L24">		int totalNames = 0;</span>
+<span class="fc" id="L25">		int uniqueBoys = 0;</span>
+<span class="fc" id="L26">		int uniqueGirls = 0;</span>
+		
+<span class="fc" id="L28">		oReport = String.format(&quot;Summary (Year of %d):\n&quot;, year);</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">		for (CSVRecord rec : getFileParser(year)) {</span>
+<span class="fc" id="L30">			int numBorn = Integer.parseInt(rec.get(2));</span>
+<span class="fc" id="L31">			totalBirths += numBorn;</span>
+<span class="fc" id="L32">			totalNames += 1;</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">			if (rec.get(1).equals(&quot;M&quot;)) {</span>
+<span class="fc" id="L34">				totalBoys += numBorn;</span>
+<span class="fc" id="L35">				uniqueBoys++;</span>
+			}
+			else {
+<span class="fc" id="L38">				totalGirls += numBorn;</span>
+<span class="fc" id="L39">				uniqueGirls++;</span>
+			}
+<span class="fc" id="L41">		}</span>
+		
+<span class="fc" id="L43">		oReport += String.format(&quot;Total Births = %,d\n&quot;, totalBirths);</span>
+<span class="fc" id="L44">		oReport += String.format(&quot;***Baby Girls = %,d\n&quot;, totalGirls);</span>
+<span class="fc" id="L45">		oReport += String.format(&quot;***Baby Boys = %,d\n&quot;, totalBoys);</span>
+		
+<span class="fc" id="L47">		oReport += String.format(&quot;Total Number of Unique Names = %,d\n&quot;, totalNames);</span>
+<span class="fc" id="L48">		oReport += String.format(&quot;***Unique Names (baby girls) = %,d\n&quot;, uniqueGirls);</span>
+<span class="fc" id="L49">		oReport += String.format(&quot;***Unique Names (baby boys) = %,d\n&quot;, uniqueBoys);</span>
+		
+<span class="fc" id="L51">		return oReport;</span>
+	}
+	
+	
+	 public static int getRank(int year, String name, String gender) {
+<span class="fc" id="L56">	     boolean found = false;</span>
+<span class="fc" id="L57">	     int oRank = 0;</span>
+<span class="fc" id="L58">	 	int rank = 1;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">	     for (CSVRecord rec : getFileParser(year)) {</span>
+	         // Increment rank if gender matches param
+<span class="fc bfc" id="L61" title="All 2 branches covered.">	         if (rec.get(1).equals(gender)) {</span>
+	             // Return rank if name matches param
+<span class="fc bfc" id="L63" title="All 2 branches covered.">	             if (rec.get(0).equals(name)) {</span>
+<span class="fc" id="L64">	             	found = true;</span>
+<span class="fc" id="L65">	             	oRank = rank;</span>
+<span class="fc" id="L66">	             	break;</span>
+	             }
+<span class="fc" id="L68">	             rank++;</span>
+	         }
+<span class="fc" id="L70">	     }</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">	     if (found)</span>
+<span class="fc" id="L72">	     	return oRank;</span>
+	     else
+<span class="fc" id="L74">	     	return -1;</span>
+	 }
+	 
+ 
+	 public static String getName(int year, int rank, String gender) {
+<span class="fc" id="L79">	 	boolean found = false;</span>
+<span class="fc" id="L80">	     String oName = &quot;&quot;;</span>
+<span class="fc" id="L81">	     int currentRank = 0;</span>
+	     
+	     // For every name entry in the CSV file
+<span class="fc bfc" id="L84" title="All 2 branches covered.">	     for (CSVRecord rec : getFileParser(year)) {</span>
+	         // Get its rank if gender matches param
+<span class="fc bfc" id="L86" title="All 2 branches covered.">	         if (rec.get(1).equals(gender)) {</span>
+	             // Get the name whose rank matches param
+<span class="fc" id="L88">	         	currentRank++;</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">	            if (currentRank == rank) {</span>
+<span class="fc" id="L90">	             	found = true;</span>
+<span class="fc" id="L91">	             	oName = rec.get(0);</span>
+<span class="fc" id="L92">	                break;</span>
+	            }
+	         }
+<span class="fc" id="L95">	     }     </span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">	     if (found)</span>
+<span class="fc" id="L97">	     	return oName;</span>
+	     else
+<span class="fc" id="L99">	     	return &quot;information on the name at the specified rank is not available&quot;;</span>
+	 }
+	 
+	 //Task 2
+	 public static int getCount(int year, String name, String gender) {
+<span class="fc" id="L104">		 boolean found = false;</span>
+<span class="fc" id="L105">		 int count = 0;</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">		 for (CSVRecord rec : getFileParser(year)) {</span>
+<span class="fc bfc" id="L107" title="All 4 branches covered.">			 if (rec.get(1).equals(gender) &amp;&amp; rec.get(0).equals(name)) {</span>
+<span class="fc" id="L108">				 found = true;</span>
+<span class="fc" id="L109">				 count = Integer.parseInt(rec.get(2));</span>
+			 }
+<span class="fc" id="L111">		 }</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">		 if(found)</span>
+<span class="fc" id="L113">		 	return count;</span>
+		 else
+<span class="fc" id="L115">			 return -1;</span>
+	 }
+	 
+	 public static float getPercentage(int year, String name, String gender) {
+<span class="fc" id="L119">		 boolean found = false;</span>
+<span class="fc" id="L120">		 float result = 0;</span>
+<span class="fc" id="L121">		 int total = 0;</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">		 for (CSVRecord rec : getFileParser(year)) {</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">			 if(rec.get(1).equals(gender)) {</span>
+<span class="fc" id="L124">				 total += Integer.parseInt(rec.get(2));</span>
+			 }
+<span class="fc" id="L126">		 }</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">		 if(!(getCount(year, name, gender) == -1)) {</span>
+<span class="fc" id="L128">			 found = true;</span>
+<span class="fc" id="L129">			 result = (float)getCount(year, name, gender)/(float)total*100;</span>
+		 }
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">		 if(found)</span>
+<span class="fc" id="L132">		 	return result;</span>
+		 else
+<span class="nc" id="L134">			 return -1;</span>
+	 }
+	 
+	 public static int getPopularYear(int YFrom, int YTo, String name, String gender) {
+<span class="fc" id="L138">		 boolean found = false;</span>
+<span class="fc" id="L139">		 int year = 0;</span>
+<span class="fc" id="L140">		 int rank = 99999999;</span>
+<span class="fc" id="L141">		 float percent = 0;</span>
+<span class="pc bpc" id="L142" title="1 of 4 branches missed.">		 if(YFrom == YTo &amp;&amp; getRank(YFrom, name, gender) != -1)</span>
+<span class="fc" id="L143">			 return YFrom;</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">		 for(int i = YFrom; i &lt;= YTo; i++) {</span>
+<span class="pc bpc" id="L145" title="1 of 4 branches missed.">			 if(getRank(i, name, gender) &lt;= rank &amp;&amp; getRank(i, name, gender) != -1) {</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">				 if(percent &lt; getPercentage(i, name, gender)) {</span>
+<span class="fc" id="L147">					 found = true;</span>
+<span class="fc" id="L148">					 rank = getRank(i, name, gender);</span>
+<span class="fc" id="L149">					 percent = getPercentage(i, name, gender);</span>
+<span class="fc" id="L150">					 year = i;</span>
+				 }
+			 }
+		 }
+<span class="pc bpc" id="L154" title="3 of 4 branches missed.">		 if(rank == getRank(YFrom, name, gender) &amp;&amp; percent == getPercentage(YFrom, name, gender))</span>
+<span class="nc" id="L155">			 return YFrom;</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">		 if(found)</span>
+<span class="fc" id="L157">		 	return year;</span>
+		 else
+<span class="fc" id="L159">			 return -1;</span>
+	 }
+	 //End Task 2
+ 
+	 //Start Task 3A
+
+	 public static String getReport3A(int start, int end, String gender, int num) {
+
+<span class="fc" id="L167">		 ArrayList&lt;Person&gt; personArrayList = new ArrayList&lt;Person&gt;();</span>
+<span class="fc" id="L168">		 String oReport = &quot;&quot;;</span>
+
+<span class="fc bfc" id="L170" title="All 2 branches covered.">		 for (int i = start; i &lt;= end; i++) {</span>
+
+<span class="fc bfc" id="L172" title="All 2 branches covered.">			 if (i == start) {</span>
+<span class="fc" id="L173">				 int counter = 0;</span>
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">				 for (CSVRecord rec : getFileParser(i)) {</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">					 if (rec.get(1).equals(gender)) {</span>
+<span class="fc" id="L176">						 int rank = AnalyzeNames.getRank(i, Report.removeUTF8BOM(rec.get(0)), gender);</span>
+<span class="fc" id="L177">						 personArrayList.add(new Person(Report.removeUTF8BOM(rec.get(0)), gender, 0, rank, i));	</span>
+<span class="fc" id="L178">						 counter++;</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">						 if (counter == num) {</span>
+<span class="fc" id="L180">							 break;</span>
+						 }
+					 }
+<span class="fc" id="L183">				 }</span>
+<span class="fc" id="L184">				 continue;</span>
+			 } 
+
+<span class="fc bfc" id="L187" title="All 2 branches covered.">			 for (int index = 0; index &lt; personArrayList.size(); index++) {</span>
+<span class="fc" id="L188">				 boolean name_exists = false;</span>
+<span class="fc" id="L189">				 int counter = 0;</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">				 for (CSVRecord rec : getFileParser(i)) {</span>
+<span class="fc bfc" id="L191" title="All 2 branches covered.">					 if (rec.get(1).equals(gender)) {</span>
+
+<span class="fc bfc" id="L193" title="All 2 branches covered.">						 if (personArrayList.get(index).name.equals(Report.removeUTF8BOM(rec.get(0)))) {</span>
+<span class="fc" id="L194">							 name_exists = true;</span>
+<span class="fc" id="L195">							 int rank = AnalyzeNames.getRank(i, Report.removeUTF8BOM(rec.get(0)), gender);</span>
+<span class="fc bfc" id="L196" title="All 2 branches covered.">							 if(rank &lt; personArrayList.get(index).highest_rank) {</span>
+<span class="fc" id="L197">								 personArrayList.get(index).highest_rank = rank;</span>
+<span class="fc" id="L198">								 personArrayList.get(index).highest_rank_year = i;</span>
+
+<span class="fc bfc" id="L200" title="All 2 branches covered.">							 } else if(rank &gt; personArrayList.get(index).lowest_rank){</span>
+<span class="fc" id="L201">								 personArrayList.get(index).lowest_rank = rank;</span>
+<span class="fc" id="L202">								 personArrayList.get(index).lowest_rank_year = i;</span>
+
+							 } 
+
+							 break;
+						 }
+<span class="fc" id="L208">						 counter++;</span>
+<span class="fc bfc" id="L209" title="All 2 branches covered.">						 if (counter == num) {</span>
+<span class="fc" id="L210">							 break;</span>
+						 }
+					 }
+<span class="fc" id="L213">				 }</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">				 if (name_exists == false) {</span>
+<span class="fc" id="L215">					 personArrayList.remove(index);</span>
+<span class="fc" id="L216">					 index--;</span>
+				 }
+			 }						
+		 }
+
+<span class="fc" id="L221">		 oReport += &quot;Summary:\n&quot; + personArrayList.size() + &quot; names are found to be maintained at a high level of popularity\nwithin Top &quot;</span>
+				 + num + &quot; over the period from year &quot; + start + &quot; to year &quot; + end + &quot;.\n&quot;;
+
+<span class="fc" id="L224">		 oReport += &quot;Results:\n============================================================================\n&quot;;</span>
+<span class="fc" id="L225">		 oReport += &quot;|Name           Lowest Rank           Highest Rank           Gross Trend   |\n&quot;;</span>
+
+<span class="fc bfc" id="L227" title="All 2 branches covered.">		 for (int index = 0; index &lt; personArrayList.size(); index++) {</span>
+<span class="fc" id="L228">			 String trend = &quot;&quot;;</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">			 if (personArrayList.get(index).lowest_rank_year == personArrayList.get(index).highest_rank_year) {</span>
+<span class="fc" id="L230">				 trend = &quot;FLAT&quot;;</span>
+<span class="fc" id="L231">				 personArrayList.get(index).lowest_rank_year = start;</span>
+<span class="fc" id="L232">				 personArrayList.get(index).highest_rank_year = end;</span>
+<span class="fc bfc" id="L233" title="All 2 branches covered.">			 } else if (personArrayList.get(index).lowest_rank_year &lt; personArrayList.get(index).highest_rank_year) {</span>
+<span class="fc" id="L234">				 trend = &quot;UP&quot;;</span>
+			 } else {
+<span class="fc" id="L236">				 trend = &quot;DOWN&quot;;				</span>
+			 }
+
+<span class="fc" id="L239">			 oReport += String.format(&quot;|%-14s Rank %-3d in %-9d Rank %-3d in %-10d %-14s|\n&quot;, personArrayList.get(index).name,</span>
+<span class="fc" id="L240">					 personArrayList.get(index).lowest_rank, personArrayList.get(index).lowest_rank_year,</span>
+<span class="fc" id="L241">					 personArrayList.get(index).highest_rank, personArrayList.get(index).highest_rank_year, trend);</span>
+
+		 }
+<span class="fc" id="L244">		 oReport += &quot;============================================================================\n&quot;;</span>
+
+
+<span class="fc" id="L247">		 return oReport;</span>
+
+	 }
+
+	 //End Task 3A
+	 
+	 //Task 5
+	 public static Zodiac getIZodiac(int yob) {
+<span class="fc" id="L255">		 Zodiac arr[] = Zodiac.values();</span>
+<span class="pc bpc" id="L256" title="1 of 2 branches missed.">		 for(Zodiac result : arr)</span>
+<span class="fc bfc" id="L257" title="All 2 branches covered.">			 if((yob - 1880)%12 == result.ordinal()) </span>
+<span class="fc" id="L258">				 return result;</span>
+<span class="nc" id="L259">		 return null;</span>
+	 }
+	 
+	 public static Zodiac getOZodiac(Zodiac iZod) {
+<span class="fc" id="L263">		 Zodiac result = iZod;</span>
+<span class="pc bpc" id="L264" title="11 of 13 branches missed.">		 switch(iZod) {</span>
+		 case Dragon:
+<span class="fc" id="L266">			 result = Zodiac.Monkey;</span>
+<span class="fc" id="L267">			 break;</span>
+		 case Snake:
+<span class="fc" id="L269">			 result = Zodiac.Rooster;</span>
+<span class="fc" id="L270">			 break;</span>
+		 case Horse:
+<span class="nc" id="L272">			 result = Zodiac.Tiger;</span>
+<span class="nc" id="L273">			 break;</span>
+		 case Sheep:
+<span class="nc" id="L275">			 result = Zodiac.Pig;</span>
+<span class="nc" id="L276">			 break;</span>
+		 case Monkey:
+<span class="nc" id="L278">			 result = Zodiac.Rabbit;</span>
+<span class="nc" id="L279">			 break;</span>
+		 case Rooster:
+<span class="nc" id="L281">			 result = Zodiac.Snake;</span>
+<span class="nc" id="L282">			 break;</span>
+		 case Dog:
+<span class="nc" id="L284">			 result = Zodiac.Horse;</span>
+<span class="nc" id="L285">			 break;</span>
+		 case Pig:
+<span class="nc" id="L287">			 result = Zodiac.Dog;</span>
+<span class="nc" id="L288">			 break;</span>
+		 case Rat:
+<span class="nc" id="L290">			 result = Zodiac.Ox;</span>
+<span class="nc" id="L291">			 break;</span>
+		 case Ox:
+<span class="nc" id="L293">			 result = Zodiac.Rat;</span>
+<span class="nc" id="L294">			 break;</span>
+		 case Tiger:
+<span class="nc" id="L296">			 result = Zodiac.Dragon;</span>
+<span class="nc" id="L297">			 break;</span>
+		 case Rabbit:
+<span class="nc" id="L299">			 result = Zodiac.Sheep;</span>
+			 break;
+		 }
+<span class="fc" id="L302">		 return result;</span>
+	 }
+	 
+	 public static int getOYob(int iYob, Zodiac iZod, Zodiac oZod, boolean prefer) {
+<span class="fc" id="L306">		 int oYob = 0;</span>
+<span class="fc bfc" id="L307" title="All 2 branches covered.">		 if(prefer) { //younger</span>
+<span class="pc bpc" id="L308" title="1 of 2 branches missed.">			 for(int i = iYob;i &lt;= 2019;i++) </span>
+<span class="fc bfc" id="L309" title="All 2 branches covered.">				 if(getIZodiac(i).ordinal()==oZod.ordinal()) {</span>
+<span class="fc" id="L310">					 oYob = i;</span>
+<span class="fc" id="L311">					 break;</span>
+				 }
+		 }
+		 else { //older
+<span class="fc bfc" id="L315" title="All 2 branches covered.">			 for(int i = iYob;i &gt;= 1880;i--) </span>
+<span class="fc bfc" id="L316" title="All 2 branches covered.">				 if(getIZodiac(i).ordinal()==oZod.ordinal()) {</span>
+<span class="fc" id="L317">					 oYob = i;</span>
+<span class="fc" id="L318">					 break;</span>
+				 }
+		 }
+<span class="fc" id="L321">		 return oYob;</span>
+	 }
+	 //End Task 5
+	 
+	 //Start Task 6
+	 
+	 public static String getReport6(String name, String gender, int yob, String pref_name, String pref_gender, String pref_age){
+		 
+<span class="fc" id="L329">		 String oReport = &quot;&quot;;</span>
+<span class="fc" id="L330">		 double oRank = getRank(yob, name, gender);</span>
+		 int oYOB;
+		 double oRankMate;
+		 double oScore;
+		 
+<span class="fc bfc" id="L335" title="All 2 branches covered.">		 if(oRank == -1) {</span>
+<span class="fc" id="L336">			 oRank = 1;</span>
+		 }
+		 
+<span class="pc bpc" id="L339" title="1 of 8 branches missed.">		 if(yob == 1880 &amp;&amp; pref_age == &quot;O&quot; || yob == 2019 &amp;&amp; pref_age == &quot;Y&quot;) {</span>
+<span class="fc" id="L340">			 oYOB = yob;</span>
+<span class="fc bfc" id="L341" title="All 2 branches covered.">		 } else if(pref_age == &quot;O&quot;) {</span>
+<span class="fc" id="L342">			 oYOB = yob-1;</span>
+		 } else {
+<span class="fc" id="L344">			 oYOB = yob+1;</span>
+		 }
+		 
+<span class="fc" id="L347">		 oRankMate = getRank(oYOB, pref_name, pref_gender);</span>
+<span class="fc bfc" id="L348" title="All 2 branches covered.">		 if(oRankMate == -1) {</span>
+<span class="fc" id="L349">			 oRankMate = 1;</span>
+		 }
+		 
+		
+		 double divisor;
+<span class="fc bfc" id="L354" title="All 2 branches covered.">		 if(oRank &gt; oRankMate) {</span>
+<span class="fc" id="L355">			 divisor = oRank;			 </span>
+		 } else {
+<span class="fc" id="L357">			 divisor = oRankMate;</span>
+		 }
+		 
+<span class="fc" id="L360">		 oScore = (1 - Math.abs(oRank-oRankMate)/divisor) * 100;</span>
+<span class="fc" id="L361">		 oReport += &quot;Score of Compatibility: &quot; + String.format(&quot;%.1f&quot;, (double)oScore) + &quot;%\n&quot;;</span>
+<span class="fc bfc" id="L362" title="All 2 branches covered.">		 if(oScore &lt; 30){</span>
+<span class="fc" id="L363">			 oReport += &quot;It seems you and &quot; + pref_name + &quot; aren't really made for each other.\n&quot;</span>
+					 + &quot;Maybe you should find a different partner.&quot;;
+<span class="fc bfc" id="L365" title="All 2 branches covered.">		 } else if(oScore &lt; 70) {</span>
+<span class="fc" id="L366">			 oReport += &quot;It seems you and &quot; + pref_name + &quot; are decent together.&quot;;</span>
+<span class="fc bfc" id="L367" title="All 2 branches covered.">		 } else if(oScore &lt; 100) {</span>
+<span class="fc" id="L368">			 oReport += &quot;You and &quot; + pref_name + &quot; look really great together!&quot;;</span>
+		 } else {
+<span class="fc" id="L370">			 oReport += &quot;You and &quot; + pref_name + &quot; are perfect together!!&quot;;</span>
+		 }
+		 
+<span class="fc" id="L373">		 return oReport;</span>
+		 
+	 }
+	 
+	 //End Task 6
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

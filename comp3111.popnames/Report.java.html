@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Report.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">Report.java</span></div><h1>Report.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import org.apache.commons.csv.*;
+
+import edu.duke.*;
+
+/**
+ * A class for getting reports.
+ * 
+ *
+ */
+<span class="fc" id="L16">public class Report {</span>
+
+	public static CSVParser getFileParser(int year) {
+<span class="fc" id="L19">	     FileResource fr = new FileResource(String.format(&quot;dataset/yob%s.csv&quot;, year));</span>
+<span class="fc" id="L20">	     return fr.getCSVParser(false);</span>
+		}
+	
+	
+	public static final String UTF8_BOM = &quot;\uFEFF&quot;;
+	/**
+	 * Helper function for removing BOM char
+	 * @param s String to do the removal
+	 * @return A string without BOM char
+	 */
+	public static String removeUTF8BOM(String s) {
+<span class="fc bfc" id="L31" title="All 2 branches covered.">	    if (s.startsWith(UTF8_BOM)) {</span>
+<span class="fc" id="L32">	        s = s.substring(1);</span>
+	    }
+<span class="fc" id="L34">	    return s;</span>
+	}
+	
+	/**
+	 * Task 1 implementation for getting topN name in each year.
+	 * @param start the starting year
+	 * @param end the ending year
+	 * @param top Top N names
+	 * @param gender gender of the name
+	 * @return a table report of the popular names in each year.
+	 */
+	public String getReportOne(int start, int end, int top, String gender) {
+<span class="fc" id="L46">		 String oReport = &quot;&quot;;</span>
+		 
+		 /*
+		 //format the String.
+		String formatString = &quot;&quot;;
+		 //String formatString = &quot;&quot;;
+		 for (int j = 1; j &lt;= top; j++) {
+			formatString += &quot;| \t#&quot; + j + &quot;:&quot; + &quot;%-13s &quot;;
+			if (j == top) {
+				formatString += &quot;|\n&quot;;
+			}
+		 }
+		 */
+		 
+<span class="fc bfc" id="L60" title="All 2 branches covered.">		 for (int i = start; i &lt;= end; i++) {</span>
+<span class="fc" id="L61">			 ArrayList&lt;String&gt; persons = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L62">			 oReport += &quot;\nTop &quot; + top + &quot; in &quot; + i + &quot;: &quot;;</span>
+<span class="fc" id="L63">			 int counter = 1;</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">			 for (CSVRecord rec : getFileParser(i)) {</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">				 if (rec.get(1).equals(gender)) {</span>
+					 //persons.add(removeUTF8BOM(rec.get(0)));
+<span class="fc" id="L67">					 oReport += &quot;| \t#&quot; + counter + &quot;:&quot; + removeUTF8BOM(rec.get(0));</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">					 for (int index = 0; index &lt; 13 - removeUTF8BOM(rec.get(0)).length(); index++) {</span>
+<span class="fc" id="L69">						oReport += &quot; &quot;;</span>
+					 }
+<span class="fc bfc" id="L71" title="All 2 branches covered.">					 if (counter == top) {</span>
+<span class="fc" id="L72">						 oReport += &quot;|\n&quot;;</span>
+<span class="fc" id="L73">						 break;</span>
+					 } else {
+<span class="fc" id="L75">						 counter++;</span>
+					 }
+				 } 
+<span class="fc" id="L78">			 }</span>
+			 //Put topN names into the report.
+			 //oReport += String.format(formatString, persons.toArray());
+			 //System.out.printf(formatString, persons.toArray());
+			 
+		 }
+<span class="fc" id="L84">		 return oReport;</span>
+	 }
+	
+	/**
+	 * Task 1 implementation for getting a summary.
+	 * @param start the starting year
+	 * @param end the ending year
+	 * @param top top N 
+	 * @param gender gender of the name
+	 * @return a summary for task 1
+	 */
+	public String getTopSpotSummary(int start, int end, int top, String gender) {
+		 
+<span class="fc" id="L97">		 ArrayList&lt;Person&gt; personArrayList = new ArrayList&lt;Person&gt;();</span>
+<span class="fc" id="L98">		 String oReport = &quot;&quot;;</span>
+		 
+
+<span class="fc bfc" id="L101" title="All 2 branches covered.">		 for (int i = start; i &lt;= end; i++) {</span>
+<span class="fc" id="L102">			 int counter = 1;</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">			 for (CSVRecord rec : getFileParser(i)) {</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">				 if (rec.get(1).equals(gender)) {</span>
+					 //For Top 1 name in each year, find if the name already existed.
+<span class="fc bfc" id="L106" title="All 2 branches covered.">					 if (counter == 1) {</span>
+<span class="fc" id="L107">						boolean nameExisted = false;</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">						for (int index = 0; index &lt; personArrayList.size(); index++) {</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">							if (personArrayList.get(index).name.equals(removeUTF8BOM(rec.get(0)))) {</span>
+<span class="fc" id="L110">								nameExisted = true;</span>
+								//update the occurrence if the name already exist.
+<span class="fc" id="L112">								personArrayList.get(index).addOccurrence(1);</span>
+<span class="fc" id="L113">								break;</span>
+							}
+						}
+						//if the name does not exist then create a new person object for this name.
+<span class="fc bfc" id="L117" title="All 2 branches covered.">						if (nameExisted == false) {</span>
+<span class="fc" id="L118">							personArrayList.add(new Person(removeUTF8BOM(rec.get(0)), gender, 1, 0, 0));</span>
+						}
+					}
+<span class="fc bfc" id="L121" title="All 2 branches covered.">					 if (counter == top) {</span>
+<span class="fc" id="L122">						 break;</span>
+					 } else {
+<span class="fc" id="L124">						 counter++;</span>
+					 }
+				 } 
+				
+<span class="fc" id="L128">			 }</span>
+		 }
+		 
+		 //For sorting the arraylist of person by occurrence.
+<span class="fc" id="L132">		 Collections.sort(personArrayList, new Comparator&lt;Person&gt;() { </span>
+			 //import java.util.Comparator; is needed
+			 @Override
+			 public int compare(Person o1, Person o2) {
+				 // TODO Auto-generated method stub
+<span class="fc" id="L137">				 return o2.getOccurrence() - o1.getOccurrence();</span>
+			 }
+		 });
+		 
+		 //Convert gender from char to string.
+<span class="fc" id="L142">		 String sex = &quot;&quot;;</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">		 if (gender == &quot;M&quot;) {</span>
+<span class="fc" id="L144">			 sex = &quot;Male&quot;;</span>
+		 } else {
+<span class="fc" id="L146">			 sex = &quot;Female&quot;;</span>
+		 }
+<span class="fc" id="L148">		 oReport += &quot;\nSummary: Over the period &quot; + start + &quot; to &quot; + end + &quot;, &quot; + removeUTF8BOM(personArrayList.get(0).getName()) + &quot; for &quot; + sex + &quot; has hold the top spot most often for a total of &quot; + personArrayList.get(0).getOccurrence() + &quot; times.\n&quot;;</span>
+<span class="fc" id="L149">		 return oReport;</span>
+	 }
+	
+	/**
+	 * Helper function for getting the maximum no. of names available for Top N.
+	 * @param start starting year of the period
+	 * @param end ending year of the period
+	 * @param gender gender of the query
+	 * @return return max number of names available for Top N.
+	 */
+	public int[] getNumberOfName(int start, int end, String gender) {//3782
+
+<span class="fc" id="L161">		int data[] = {0,0}; //data[0]: number of name; data[1]: year;</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">		for (int i = start; i &lt;= end; i++) {</span>
+<span class="fc" id="L163">			int counter = 0;</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">			for (CSVRecord rec : getFileParser(i)) {</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">				if (rec.get(1).equals(gender)) {</span>
+<span class="fc" id="L166">					counter++;</span>
+				}
+<span class="fc" id="L168">			}</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">			if (i == start) {</span>
+<span class="fc" id="L170">				data[0] = counter;</span>
+<span class="fc" id="L171">				data[1] = i;</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">			} else if (data[0] &gt; counter){</span>
+<span class="fc" id="L173">				data[0] = counter;</span>
+<span class="fc" id="L174">				data[1] = i;</span>
+			}
+		}
+
+<span class="fc" id="L178">		return data;</span>
+	}
+}//End of Report Class
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
